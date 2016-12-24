@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// function f1() {
+		// 	var n = 999;
+		// 	function f2() {
+		// 		console.log(n++);
+		// 	}
+			
+		// 	return f2;
+		// }
+
+		// var result = f1();
+		// result();
+		// result();
+		var f = function(str1) {
+			return function(str2) {
+				return str1+' '+str2;
+			}
+		}
+		var a = f('hello');
+		var b = f('goodble');
+		console.log(a('Mack'));
+		console.log(b('Amy'));
+	</script>
+	
+</body>
+</html>

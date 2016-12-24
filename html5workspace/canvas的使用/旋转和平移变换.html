@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			window.onload = function() {
+				canvasApp();
+			};
+			function canvasApp() {
+				var canvas = document.getElementById("canvas");
+				var context = canvas.getContext("2d");
+				drawScreen();
+				
+				
+				function drawScreen() {
+					//黑色正方形
+					context.fillStyle = "black";
+					context.fillRect(20,20,25,25);
+					
+					//红色正方形
+					//画布不知道旋转的原点在哪里，canvas会认为原点在点（0,0）
+					context.setTransform(1,0,0,1,0,0);//先对画布应用setTransform函数，才对形状其作用
+					var angleInReadians = 45*Math.PI/180;
+					context.rotate(angleInReadians);//将变化后的图形绘画出来
+					context.fillStyle = "red";
+					context.fillRect(100,100,50,50);
+					
+					//位置不变，进行变换
+					context.setTransform(1,0,0,1,0,0);
+					var angleInReadians = 45*Math.PI/180;
+					var x = 100;
+					var y = 100;
+					var width = 50;
+					var height = 50;
+					context.translate(x+0.5*width,y+0.5*height);//设置旋转原点
+					context.rotate(angleInReadians);
+					context.fillStyle = "blue";
+					context.fillRect(-0.5*width,-0.5*height,width,height);//因原点的变化，图形的坐标也进行相应的变化
+					
+					
+					
+				}
+			}
+
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas" width="500" height="500">
+			Your brower dose not support HTML5 Canvase.
+		</canvas>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.elementStart{
+			width: 50%;
+			border: 1px solid green;
+			height: 300px;
+		}
+		.elementTransition{
+			transition: width 2s;
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div class="elementStart">
+		<button id="myAction">Transition</button>
+	</div>
+
+
+	<script type="text/javascript">
+		document.getElementById("myAction").onclick = function(e) {
+			var a = e.target.parentNode;
+			a.className = a.className +=' elementTransition';
+		};
+	</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			window.onload = function() {
+				canvasApp();
+			};
+			function canvasApp() {
+				var canvas = document.getElementById("canvas");
+				var context = canvas.getContext("2d");
+				drawScreen();
+				
+				
+				function drawScreen() {
+					context.setTransform(1,0,0,1,0,0);
+					var x = 100;
+					var y = 100;
+					var width = 50;
+					var height = 50;
+					context.translate(x+0.5*width,y+0.5*height);
+					context.scale(2,2);//1为正常大小，2为原来大小的一倍
+					context.fillStyle = "red";
+					context.fillRect(-0.5*width,-0.5*height,width,height);
+				}
+			}
+
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas" width="500" height="500">
+			Your brower dose not support HTML5 Canvase.
+		</canvas>
+	</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		canvas{width: 200px; height: 100px; border:1px solid #000000;}
+	</style>
+
+</head>
+<body>
+	<canvas id="c1"></canvas>
+	<canvas id="c2"></canvas>
+	<canvas id="c3"></canvas>
+	<canvas id="c4"></canvas>
+	<canvas id="c5"></canvas>
+
+
+	<script type="text/javascript">
+	
+
+		var c1 = document.getElementById("c1");
+		var ctx1 = c1.getContext("2d");
+		ctx1.fillStyle = "#FF0000";
+		ctx1.fillRect(0,0,150,70);
+
+		var c2 = document.getElementById("c2");
+		var ctx2 = c2.getContext("2d");
+		ctx2.moveTo(0,0);
+		ctx2.lineTo(200,100);
+		ctx2.stroke();
+
+
+		var c3 = document.getElementById("c3");
+		var ctx3 = c3.getContext("2d");
+		ctx3.beginPath();
+		ctx3.arc(95,50,40,0,2*Math.PI);
+		ctx3.stroke();
+
+
+		var c4 = document.getElementById("c4");
+		var ctx4 = c4.getContext("2d");
+		ctx4.font = "30px Arial";
+		ctx4.fillText("Hello World", 10, 50);
+
+
+		var c5 = document.getElementById("c5");
+		var ctx5 = c5.getContext("2d");
+		ctx5.font = "30px Arial";
+		ctx5.strokeText("Hello World", 10, 50);
+	</script>
+</body>
+</html>

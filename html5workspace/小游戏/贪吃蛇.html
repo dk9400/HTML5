@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>贪吃蛇</title>
+	<style type="text/css">
+		#container{ width: 600px; height: 400px;margin-top: 50px; margin-left: 260px; border: 2px solid black;position:absolute;}
+		span{ width:20px; height:20px; float:left;}
+		span.snake{ background:black; position:absolute; top:0;}
+		span.food{ background:yellow; position:absolute; animation:colorChanged 0.5s infinite;}
+		@keyframes colorChanged{0{ background:yellow} 100%{ background:#C0F}}
+	</style>
+	<script type="text/javascript">
+		window.onload = function() {
+			gameApp();
+		}
+
+		function gameApp() {
+			var container = document.getElementById("container");
+			var score = document.getElementById("score");
+
+			var speed = 150;
+			var snake = [];
+			var eated = 0;
+			var food = null;
+
+			//方向
+			var DIR = {
+				DIRECTION_TOP:1,
+				DIRECTION_BOTTON:2,
+				DIRECTION_LEFT:3,
+				DIRECTION_RIGHT:4
+			};
+			var direction = DIR.DIRECTION_RIGHT;
+
+			createMap();
+			showSnake();
+			showFood();
+			DIRListener();
+			all=setInterval(snakeMove,speed);
+			
+
+			function createMap() {
+				var num = (container.offsetWidth-4)/20*(container.offsetHeight-4)/20;
+				for(var i=0; i<num; i++) {
+					container.appendChild(getSquare(0));
+				}
+			}
+			function showSnake() {
+				for( var i=0;i<4;i++){
+					var square=getSquare(1);
+					square.style.left=20*(i)+"px";
+					container.appendChild(square);
+					snake.push(square);
+				}
+			}
+			function showFood() {
+				food = getSquare(2);
+				var top;
+				var left;
+				do {
+					var maxH = (container.offsetHeight-4)/20;
+					var maxW = (container.offsetWidth-4)/20;
+					top = Math.floor(Math.random()*maxH)*20;//为什么乘20？？？
+					left = Math.floor(Math.random()*maxW)*20;
+				}while(!checkPositionIsValid(top,left))
+				food.style.top = top+"px";
+				food.style.left = left+"px";
+				container.appendChild(food);
+			}
+			function getSquare(flag) {
+				var newSpan = document.createElement("span");
+				switch(flag) {
+					case 0:
+						break;
+					case 1:
+						newSpan.className = "snake";
+						break;
+					case 2:
+						newSpan.className = "food";
+						break;
+					default:
+						break;
+				}
+				return newSpan;
+			}
+			function checkPositionIsValid(top,left) {
+				for( var i=0;i<snake.length;i++){
+					if(snake[i].offsetTop==top&&snake[i].offsetLeft==left){
+						return false;
+					}
+				}
+				return true;
+			}
+			function DIRListener() {
+				document.onkeydown = function(e) {
+					if(direction > 2) {
+						switch(e.keyCode) {
+							case 38:
+								direction = DIR.DIRECTION_TOP;
+								break;
+							case 40:
+								direction = DIR.DIRECTION_BOTTON;
+								break; 
+							default:break;
+						}
+					} else {
+						switch(e.keyCode) {
+							case 37:
+								direction = DIR.DIRECTION_LEFT;
+								break;
+							case 39:
+								direction = DIR.DIRECTION_RIGHT;
+								break; 
+							default:break;
+						}
+					}
+				}
+			} 
+
+			function snakeMove() {
+				var snakeHead = snake[snake.length-1];
+				var top = snakeHead.offsetTop;
+				var left = snakeHead.offsetLeft;
+				switch(direction) {
+					case DIR.DIRECTION_TOP:
+						top -= snakeHead.offsetHeight;
+						break;
+					case DIR.DIRECTION_BOTTON:
+						top += snakeHead.offsetHeight;
+						break;
+					case DIR.DIRECTION_LEFT:
+						left -= snakeHead.offsetWidth;
+						break;
+					case DIR.DIRECTION_RIGHT:
+						left += snakeHead.offsetWidth;
+						break;
+					default:break;
+				}
+
+				if(top==food.offsetTop && left==food.offsetLeft) {
+					food.className = "snake";
+					snake.push(food);
+					eated++;
+					score.innerText = eated;
+					showFood();
+					clearInterval(all);
+					all=setInterval(snakeMove,speed);
+					return;
+				}
+				if(!checkPositionIsValid(top,left)||top<0||left<0||top>=container.offsetHeight-4||left>=container.offsetWidth-4){
+					alert(" GAME OVER");
+					clearInterval(all);
+				}
+				for(var i=0;i<snake.length-1;i++){
+					//让i的位置变道i+1的位置
+					snake[i].style.top=snake[i+1].offsetTop+"px";
+					snake[i].style.left=snake[i+1].offsetLeft+"px";
+					//处理snake的头
+				}
+				snakeHead.style.left=left+"px"
+				snakeHead.style.top=top+"px"
+			}
+		}
+		function reset(){
+			window.location.reload();
+		}
+	</script>
+</head>
+<body>
+	分数：<strong id="score">0</strong>
+	<input type="button" onclick="reset()" value="重新开始">
+	<div id="container"></div>
+
+
+
+
+</body>
+</html>

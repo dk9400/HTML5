@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单的应用</title>
+<!-- 	<style type="text/css">
+		@font-face {font-family: Radley; src: local('Radley'), url('Radley.woff');}
+
+	</style> -->
+</head>
+<body>
+	<form action="" id="myForm">
+		First name: <input type="text" name="fname"/> <br/>
+		Last name: <input type="text" name="lname"> <br/>
+		Brith: <input type="date" name="brith" min="1960-01-01" step="1" max="2017-01-01"> <br/>
+		E-mail: <input type="email" name="email"> <br/>
+		Favorite Animal: <input type="text" name="animal" list="animals"> <br/>
+		<datalist id="animals">
+			<option value="Dog"></option>
+			<option value="Dolphin"></option>
+			<option value="Duck"></option>
+			<option value="Cat"></option>
+			<option value="Bird"></option>
+		</datalist>
+		Range: <input id="range" type="range" min="0" max="15" step=".5" value="3" oninput="setRangeSpan()"><span id="rangeSpan"></span>
+	</form>
+	<input type="submit" form="myForm"/>
+	
+
+
+
+	<script type="text/javascript">
+		var range = document.getElementById("range");
+		var rangeSpan = document.getElementById("rangeSpan");
+		var setRangeSpan = function() {
+			rangeSpan.innerHTML = range.value;
+		}
+	</script>
+</body>                                                         
+</html>

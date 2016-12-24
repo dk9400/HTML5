@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>简单直线路径</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				canvasApp();
+			};
+			function canvasApp() {
+				var canvas = document.getElementById("canvas");
+				var context = canvas.getContext("2d");
+				drawScreen();
+				
+				
+				function drawScreen() {
+					context.strokeStyle = "black";
+					context.lineWidth = 30;
+					context.lineCap = "butt";//默认值，端点是垂直于线段边缘的平直边缘
+					context.beginPath();
+					context.moveTo(20,0);
+					context.lineTo(100,0);
+					context.stroke();
+					context.closePath();
+					
+					context.lineCap = "round";//端点是在线段边缘处以线宽为直径的半圆
+					context.beginPath();
+					context.moveTo(20,50);
+					context.lineTo(100,50);
+					context.stroke();
+					context.closePath();
+					
+					context.lineCap = "square";//端点是在选段边缘处以线宽为长、以一半线宽为宽的矩形。
+					context.beginPath();
+					context.moveTo(20,90);
+					context.lineTo(100,90);
+					context.stroke();
+					context.closePath();
+				}
+			}
+
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas" width="500" height="500">
+			Your brower dose not support HTML5 Canvase.
+		</canvas>
+	</body>
+</html>

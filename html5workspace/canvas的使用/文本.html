@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			window.onload = function() {
+				canvasApp();
+			};
+			function canvasApp() {
+				var canvas = document.getElementById("canvasOne");
+				var context = canvas.getContext("2d");
+				//初始化参数
+				var message = "your text";
+				var fillOrStroke = "fill";
+				var fontStyle = "normal";
+				var fontWeight = "normal";
+				var fontSize = "50";
+				var fontFace = "serif";
+				var textAlpha = 1;
+				var shadowX = 1;
+				var shadowY = 1;
+				var shadowBlur = 1;//阴影模糊滤镜，数值越大，扩散程度越大。
+				var shadowColor = "#707070";
+				
+				
+				var formElement = document.getElementById("textBox");
+				formElement.addEventListener("keyup",textBoxChanged,false);
+				
+				formElement = document.getElementById("fillOrStroke");
+				formElement.addEventListener("change", fillOrStrokeChanged, false);
+				
+				formElement = document.getElementById("fontStyle");
+				formElement.addEventListener("change", fontStyleChanged, false);
+				
+				formElement = document.getElementById("fontWeight");
+				formElement.addEventListener("change", fontWeightChanged, false);
+				
+				formElement = document.getElementById("textSize");
+				formElement.addEventListener("change", textSizeChanged, false);
+				
+				formElement = document.getElementById("textFont");
+				formElement.addEventListener("change", textFontChanged, false);
+				
+				formElement = document.getElementById("textAlpha");
+				formElement.addEventListener("change", textAlphaChanged, false);
+				
+				formElement = document.getElementById("shadowX");
+				formElement.addEventListener("change", shadowXChanged, false);
+				
+				formElement = document.getElementById("shadowY");
+				formElement.addEventListener("change", shadowYChanged, false);
+				
+				formElement = document.getElementById("shadowBlur");
+				formElement.addEventListener("change", shadowBlurChanged, false);
+				
+				formElement = document.getElementById("shadowColor");
+				formElement.addEventListener("change", shadowColorChanged, false);
+				
+				drawScreen();
+				
+				function textBoxChanged(e) {
+					var target = e.target;
+					message = target.value;
+					drawScreen();
+				}
+				
+				function fillOrStrokeChanged(e) {
+					var target = e.target;
+					fillOrStroke = target.value;
+					drawScreen();
+				}
+				
+				function fontStyleChanged(e) {
+					var target = e.target;
+					fontStyle = target.value;
+					drawScreen();
+				}
+				
+				function fontWeightChanged(e) {
+					var target = e.target;
+					fontWeight = target.value;
+					drawScreen();
+				}
+				
+				function textSizeChanged(e) {
+					var target = e.target;
+					fontSize = target.value;
+					drawScreen();
+				}
+				
+				function textFontChanged(e) {
+					var target = e.target;
+					fontFace = target.value;
+					drawScreen();
+				}
+				
+				function textAlphaChanged(e) {
+					var target = e.target;
+					textAlpha = target.value;
+					drawScreen();
+				}
+				
+				function shadowXChanged(e) {
+					var target = e.target;
+					shadowX = target.value;
+					drawScreen();
+				}
+				
+				function shadowYChanged(e) {
+					var target = e.target;
+					shadowY = target.value;
+					drawScreen();
+				}
+				
+				function shadowBlurChanged(e) {
+					var target = e.target;
+					shadowBlur = target.value;
+					drawScreen();
+				}
+				
+				function shadowColorChanged(e) {
+					var target = e.target;
+					shadowColor = target.value;
+					drawScreen();
+				}
+				
+				function drawScreen() {
+					//Background
+					context.fillStyle = "#ffffaa";
+					context.fillRect(0,0,canvas.width,canvas.height);
+					context.globalAlpha = 1; //每次更新透明度必须重设透明度
+					
+					//Box
+					context.strokeStyle = "#000000";
+					context.strokeRect(5,5,canvas.width-10,canvas.height-10);
+					
+					//Text
+					context.globalAlpha = textAlpha;
+					context.font = fontWeight+" "+fontStyle+" "+fontSize+"px "+fontFace;
+					context.shadowOffsetX = shadowX;
+					context.shadowOffsetY = shadowY;
+					context.shadowBlur = shadowBlur;
+					context.shadowColor = shadowColor;
+					
+					
+					//将输入的文本信息，居中
+					var metrics = context.measureText(message);
+					var textWidth = metrics.width;
+					var xPosition = (canvas.width/2) - (textWidth/2);
+					var yPostion = (canvas.height/2);
+					
+					switch (fillOrStroke){
+						case "fill":
+							context.fillStyle = "#ff0000";
+							context.fillText(message,xPosition,yPostion);
+							break;
+						case "stroke":
+							context.strokeStyle = "#ff0000";
+							context.strokeText(message,xPosition,yPostion);
+							break;
+						case "both":
+							context.fillStyle = "#ff0000";
+							context.fillText(message,xPosition,yPostion);
+							context.strokeStyle = "#000000";
+							context.strokeText(message,xPosition,yPostion);
+							break;
+						
+					}
+				}
+			}
+
+		</script>
+	</head>
+	<body>
+		<div style="position: absolute; top: 50px; left: 50px;">
+			<canvas id="canvasOne" width="500" height="300">
+				Your brower dose not support HTML5 Canvase.
+			</canvas>
+			<form>
+				Text: <input id="textBox" placeholder="your text"/><br/>
+				Fill or Stroke:
+				<select id="fillOrStroke">
+					<option value="fill">fill</option>
+					<option value="stroke">stroke</option>
+					<option value="both">both</option>
+				</select>
+				<br/>
+				Font Style:
+				<select id="fontStyle">
+					<option value="normal">normal</option>
+					<option value="italic">italic</option>
+					<option value="oblique">oblique</option>
+				</select>
+				<br/>
+				Font Width:
+				<select id="fontWeight">
+					<option value="normal">normal</option>
+					<option value="bold">bold</option>
+					<option value="bolder">bolder</option>
+					<option value="lighter">lighter</option>
+				</select>
+				<br />
+				Text Font:
+				<select id="textFont">
+					<option value="serif">serif</option>
+					<option value="sans-serif">sans-serif</option>
+					<option value="cursive">cursive</option>
+				</select>
+				<br />
+				Text Size:
+				<input type="range" id="textSize" min="0" max="200" step="1" value="50" />
+				<br />
+				Alpha:
+				<input type="range" id="textAlpha" min="0.0" max="1.0" step="0.01" value="1.0" />
+				<br />
+				ShadowX:
+				<input type="range" id="shadowX" min="-100" max="100" step="1" value="1" />
+				<br />
+				ShadowY:
+				<input type="range" id="shadowY" min="-100" max="100" step="1" value="1" />
+				<br />
+				ShadowBlur:
+				<input type="range" id="shadowBlur" min="1" max="100" step="1" value="1" />
+				<br />
+				ShadowColor:
+				<input type="color" id="shadowColor" value="#707070" />
+				<br />
+			</form>
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			window.onload = function(){
+				canvasApp();
+			}
+			function canvasApp() {
+				var theCanvas = document.getElementById("canvasOne");
+				var context = theCanvas.getContext("2d");
+				
+				drawScreen();
+				
+				function drawScreen() {
+					context.save();//保存当前绘图状态
+					
+					context.translate(70,140);//向右下方移动绘图
+					
+					context.beginPath();
+					context.moveTo(0,0);
+					context.lineTo(70,-70);
+					context.stroke();
+					
+					context.restore();
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="canvasOne" width="500" height="500">
+			Your brower is not suppered canvas.
+		</canvas>
+	</body>
+</html>

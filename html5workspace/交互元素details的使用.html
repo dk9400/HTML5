@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>交互元素details的使用</title>
+	<style>
+/*		details{height: 0; overflow: hidden; position: relative;display: block;}*/
+		details[open]{height: auto;}
+		summary{font-weight: bold;}
+	</style>
+	<script>
+		function span1() {
+			var details1 = document.getElementById("details1");
+			var attD = details1.getAttribute("open");
+			if(attD!="open"){
+				details1.setAttribute("open", "open");
+			} else {
+				details1.removeAttribute("open");
+			}
+		}
+	</script>
+</head>
+<body>
+<!-- 
+	<span onclick="span1()">脚注</span>
+	<details id="details1">
+		本页面生成于2016-12-03
+	</details>
+ -->
+	<details open="open">
+		<summary>页面说明</summary>
+		页面内容.....
+	</details>
+</body>
+</html>
